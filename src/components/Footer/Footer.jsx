@@ -3,7 +3,7 @@ const Footer = () => {
         <footer className="footer p-10 bg-base-200 text-base-content sticky top-[100vh] bg-gradient-to-l from-indigo-500 to-indigo-000 rounded-lg text-yellow-900 text-sm font-semibold">
         <div>
         <img className='rounded-lg' src="https://i.ibb.co/mGcZ88J/image.png" alt="" />
-          <p>ACME Industries Ltd.<br/>Providing reliable tech since 1992</p>
+          <p>Educational Toy Market.<br/>Providing reliable tech since 2023</p>
         </div> 
         <div>
           <span className="footer-title font-bold">Services</span> 

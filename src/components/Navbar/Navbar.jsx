@@ -7,7 +7,7 @@ const Navbar = () => {
         <a> <img className='rounded-lg' src="https://i.ibb.co/mGcZ88J/image.png" alt="" /></a>
       <div className="navbar-center hidden lg:flex ">
         <ul className="menu menu-horizontal px-1 text-2xl text-white font-semibold">
-         <Link to='/home'> <li><a>Home</a></li></Link>
+         <Link to='/'> <li><a>Home</a></li></Link>
           <Link to='/blog'><li><a>Blog</a></li></Link>
           <Link to='/about'><li><a>About</a></li></Link>
           <Link to='/alltoys'><li><a>All Toys</a></li></Link>

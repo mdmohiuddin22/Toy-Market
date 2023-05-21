@@ -4,6 +4,8 @@ const Footer = () => {
         <div>
         <img className='rounded-lg' src="https://i.ibb.co/mGcZ88J/image.png" alt="" />
           <p>Educational Toy Market.<br/>Providing reliable tech since 2023</p>
+          <br />
+          <p>copyright © </p>
         </div> 
         <div>
           <span className="footer-title font-bold">Services</span> 

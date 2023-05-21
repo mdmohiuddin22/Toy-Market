@@ -16,6 +16,7 @@ import AllToys from './components/Navbar/AllToys';
 import MyToys from './components/Navbar/MyToys';
 import AddAToy from './components/Navbar/AddAToy';
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import Register from './components/Login/Register';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path:'addatoy',
         element:<AddAToy></AddAToy>
+      },
+      {
+        path:'registration',
+        element:<Register></Register>
       }
      
     ]

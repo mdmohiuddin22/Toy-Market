@@ -1,8 +1,17 @@
+
+import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const ShopByCategory = () => {
+    const [toys, setToys]=useState([]);
+    useEffect(()=>{
+        fetch('http://localhost:5000/toys')
+        .then (res => res.json())
+        .then (data => setToys(data))
+    },[]);
     return (
         <div>
+            <h1>All Toys:{toys.length}</h1>
  <div className="text-center">
  <h2 className="text-4xl font-extrabold mb-6">Shop By Category</h2>
              <Tabs className="text-lg">

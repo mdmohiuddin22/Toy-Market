@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-
 import React, { useState } from 'react';
 
 const AddToyForm = () => {
@@ -33,10 +30,12 @@ const AddToyForm = () => {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>
       <h1>Add A Toy</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="toyImageUrl">Picture URL:</label>
+      <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '10px' }}>
+        <label htmlFor="toyImageUrl" style={{ textAlign: 'left' }}>
+          Picture URL:
+        </label>
         <input
           type="text"
           id="toyImageUrl"
@@ -44,9 +43,12 @@ const AddToyForm = () => {
           value={toy.toyImageUrl}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="toyName">Name:</label>
+        <label htmlFor="toyName" style={{ textAlign: 'left' }}>
+          Name:
+        </label>
         <input
           type="text"
           id="toyName"
@@ -54,18 +56,24 @@ const AddToyForm = () => {
           value={toy.toyName}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="sellerName">Seller Name:</label>
+        <label htmlFor="sellerName" style={{ textAlign: 'left' }}>
+          Seller Name:
+        </label>
         <input
           type="text"
           id="sellerName"
           name="sellerName"
           value={toy.sellerName}
           onChange={handleChange}
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="sellerEmail">Seller Email:</label>
+        <label htmlFor="sellerEmail" style={{ textAlign: 'left' }}>
+          Seller Email:
+        </label>
         <input
           type="email"
           id="sellerEmail"
@@ -73,21 +81,27 @@ const AddToyForm = () => {
           value={toy.sellerEmail}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="subCategory">Sub-category:</label>
+        <label htmlFor="subCategory" style={{ textAlign: 'left' }}>
+          Sub-category:
+        </label>
         <select
           id="subCategory"
           name="subCategory"
           value={toy.subCategory}
           onChange={handleChange}
+          style={{ width: '100%' }}
         >
           <option value="Math Toys">Math Toys</option>
           <option value="Language Toys">Language Toys</option>
           <option value="Science Toys">Science Toys</option>
         </select>
 
-        <label htmlFor="price">Price:</label>
+        <label htmlFor="price" style={{ textAlign: 'left' }}>
+          Price:
+        </label>
         <input
           type="number"
           id="price"
@@ -95,9 +109,12 @@ const AddToyForm = () => {
           value={toy.price}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="rating">Rating:</label>
+        <label htmlFor="rating" style={{ textAlign: 'left' }}>
+          Rating:
+        </label>
         <input
           type="number"
           id="rating"
@@ -105,9 +122,12 @@ const AddToyForm = () => {
           value={toy.rating}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="quantity">Available Quantity:</label>
+        <label htmlFor="quantity" style={{ textAlign: 'left' }}>
+          Available Quantity:
+        </label>
         <input
           type="number"
           id="quantity"
@@ -115,18 +135,33 @@ const AddToyForm = () => {
           value={toy.quantity}
           onChange={handleChange}
           required
+          style={{ width: '100%' }}
         />
 
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description" style={{ textAlign: 'left' }}>
+          Description:
+        </label>
         <textarea
           id="description"
           name="description"
           value={toy.description}
           onChange={handleChange}
           required
+          style={{ width: '100%', height: '100px' }}
         ></textarea>
 
-        <input type="submit" value="Add Toy" />
+        <input
+          type="submit"
+          value="Add Toy"
+          style={{
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            padding: '10px',
+            border: 'none',
+            cursor: 'pointer',
+            width: '100%'
+          }}
+        />
       </form>
     </div>
   );

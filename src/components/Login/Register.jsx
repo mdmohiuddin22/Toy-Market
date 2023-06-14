@@ -1,108 +1,237 @@
+// import { Link } from 'react-router-dom';
+// import { useContext } from 'react';
+// import { AuthContext } from '../AuthProviders/AuthProviders';
+
+
+
+// const SignUp = () => {
+
+//     const { createUser } = useContext(AuthContext);
+
+//     const handleSignUp = event => {
+//         event.preventDefault();
+//         const form = event.target;
+//         const name = form.name.value;
+//         const email = form.email.value;
+//         const password = form.password.value;
+//         console.log(name, email, password)
+
+
+//         createUser(email, password)
+//             .then(result => {
+//                 const user = result.user;
+//                 console.log('created user', user)
+//             })
+//             .catch(error => console.log(error))
+
+//     }
+
+//     return (
+//         <div className="hero min-h-screen bg-base-200">
+//             <div className="hero-content flex-col lg:flex-row">
+//                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+//                     <div className="card-body">
+//                         <h1 className="text-3xl text-center font-bold">Sign Up</h1>
+//                         <form onSubmit={handleSignUp}>
+//                             <div className="form-control">
+//                                 <label className="label">
+//                                     <span className="label-text">Name</span>
+//                                 </label>
+//                                 <input type="text" name='name' placeholder="name" className="input input-bordered" />
+//                             </div>
+//                             <div className="form-control">
+//                                 <label className="label">
+//                                     <span className="label-text">Email</span>
+//                                 </label>
+//                                 <input type="text" name='email' placeholder="email" className="input input-bordered" />
+//                             </div>
+//                             <div className="form-control">
+//                                 <label className="label">
+//                                     <span className="label-text">Password</span>
+//                                 </label>
+//                                 <input type="password" name='password' placeholder="password" className="input input-bordered" />
+            
+//                             </div>
+//                             <div className="form-control">
+//                                 <label className="label">
+//                                     <span className="label-text">Confirm Password</span>
+//                                 </label>
+//                                 <input type="password" name='password' placeholder="password" className="input input-bordered" />
+            
+//                             </div>
+//                             <div className="form-control mt-6">
+//                                 <input className="btn btn-primary" type="submit" value="Sign Up" />
+//                             </div>
+//                         </form>
+//                         <p className='my-4 text-center'>Already Have an Account? <Link className='text-orange-600 font-bold' to="/login">Login</Link> </p>
+//                         {/* <SocialLogin></SocialLogin> */}
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default SignUp;
+
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
-const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { AuthContext } from "../AuthProviders/AuthProviders";
+import app from "../firebase/firebase.config";
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+const SignUp = () => {
+  const auth =getAuth(app);
+  const provider =new GoogleAuthProvider();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+    .then(result =>{
+      const user =result.user;
+      console.log(user);
+      navigate(from, { replace: true });
+    })
+    .catch(error =>{
+      console.log('error', error.message)
+    })
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+  const { createUser } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    });
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login form submitted');
-  };
+  const password = watch("password"); 
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-indigo-500  to-indigo-50">
-      <form className="w-80" onSubmit={handleSubmit}>
-       
-        <div className="mb-8">
-          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
-           Name
-          </label>
-          <input
-            type="name"
-            id="name"
-            name='name'
-            placeholder='enter your name'
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-
-            required
-          />
-        </div>
-        <div className="mb-8">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name='email'
-            placeholder='enter yout email'
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name='password'
-            placeholder='enter your password'
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
-        </div>
-        <div className="mb-8">
-          <label htmlFor="photo-url" className="block text-gray-700 text-sm font-bold mb-2">
-           Photo URL
-          </label>
-          <input
-            type="photo-url"
-            id="photo-url"
-            name='photo-url'
-            placeholder='enter your photo url'
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        // onChange={handleEmailChange}
-            required
-          />
-        </div>
-        <div className="flex items-center justify-between">
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+     
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                placeholder="Name"
+                className="input input-bordered"
+              />
+              {errors.name && (
+                <span className="text-red-600">Name is required</span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                {...register("email", { required: true })}
+                placeholder="Email"
+                name="email"
+                className="input input-bordered"
+              />
+              {errors.email && (
+                <span className="text-red-600">Email is required</span>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 20,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z])/,
+                })}
+                placeholder="Password"
+                name="password"
+                className="input input-bordered"
+              />
+              {errors.password?.type === "required" && (
+                <p className="text-red-600">Password is required</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-600">is less than 6 characters</p>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <p className="text-red-600">Password must be less than 20 characters</p>
+              )}
+              {errors.password?.type === "pattern" && (
+                <p className="text-red-600">
+                  Don't have a capital letter, Don't have a small letter, one number, and don't have a special character
+                </p>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
+              <input
+                type="password"
+                {...register("confirmPassword", {
+                  required: true,
+                  validate: (value) => value === password || "Passwords do not match",
+                })}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                className="input input-bordered"
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-600">{errors.confirmPassword.message}</p>
+              )}
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                {...register("photoURL")}
+                placeholder="Photo URL"
+                className="input input-bordered"
+              />
+            </div>
+            <div className="form-control mt-6">
+              <input className="btn btn-primary" type="submit" value="Sign Up" />
+            </div>
+          </form>
+          <p>
+            <small>
+              Already have an account? <Link to="/login">Login</Link>
+            </small>
+          </p>
+          <div className="mt-4">
           <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+            onClick={handleGoogleLogin}
           >
-           Registration
-          </button> 
+            Sign in with Google
+          </button>
         </div>
-        <br />
-  <p className="mt-4 text-white text-sm">
-        already have an account,{' '}
-        <Link to="/login" className="text-blue-500 font-semibold">
-          <span className='text-lg'>please sign in</span>
-        </Link>
-      </p>
-      </form>
-    
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Register;
+export default SignUp;

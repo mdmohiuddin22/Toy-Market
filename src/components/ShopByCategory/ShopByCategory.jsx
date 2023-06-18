@@ -14,11 +14,11 @@ const ShopByCategory = () => {
             <h1>All Toys:{toys.length}</h1>
  <div className="text-center">
  <h2 className="text-4xl font-extrabold mb-6">Shop By Category</h2>
-             <Tabs className="text-lg">
-    <TabList>
-      <Tab>Educational Math Toys</Tab>
-      <Tab>Educational Engineering Toys</Tab>
-      <Tab>Educational Science Toys </Tab>
+             <Tabs className="text-lg ">
+    <TabList className="flex justify-center border-b border-emerald-600 pb-3">
+      <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Math Toys</Tab>
+      <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Engineering Toys</Tab>
+      <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Science Toys </Tab>
     </TabList>
 
     <TabPanel>

@@ -1,170 +1,62 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
 
-const AddToyForm = () => {
-  const [toy, setToy] = useState({
-    toyImageUrl: '',
-    toyName: '',
-    sellerName: '',
-    sellerEmail: '',
-    subCategory: '',
-    price: '',
-    rating: '',
-    quantity: '',
-    description: ''
-  });
+const AllToys = () => {
+  const [toys, setToys] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    fetchToys();
+  }, []);
 
-    // Perform any additional processing or validation here
-    // You can access the toy object with the form data
-
-    console.log(toy);
-  };
-
-  const handleChange = (e) => {
-    setToy({
-      ...toy,
-      [e.target.name]: e.target.value
-    });
+  const fetchToys = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/toys?limit=20");
+      const data = await response.json();
+      setToys(data);
+    } catch (error) {
+      console.error("Error fetching toys:", error);
+    }
   };
 
   return (
-    <div style={{ textAlign: 'center', maxWidth: '500px', margin: '0 auto' }}>
-      <h1>Add A Toy</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '10px' }}>
-        <label htmlFor="toyImageUrl" style={{ textAlign: 'left' }}>
-          Picture URL:
-        </label>
-        <input
-          type="text"
-          id="toyImageUrl"
-          name="toyImageUrl"
-          value={toy.toyImageUrl}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
+    <div>
+      <h2 className="text-4xl font-bold mb-6 text-center">All Toys</h2>
+      <div className="flex flex-wrap justify-center gap-10 m-10">
+        {toys.map((toy, index) => (
+          <div key={index} className="card card-compact w-96 bg-base-100 shadow-xl">
+            <figure>
+              <img src={toy.image} alt={toy.name} />
+            </figure>
+            <div className="card-body">
+              {toy.seller && <p>Seller: {toy.seller}</p>}
+              <h2 className="card-title">{toy.name}</h2>
+              <p>Sub-category: {toy.subCategory}</p>
+              <p>Price: {toy.price}</p>
+              <p>Available Quantity: {toy.quantity}</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary">View Details</button>
+                <div className="card card-compact w-96 bg-base-100 shadow-xl">
+  <figure><img src="
+  https://i.ibb.co/ByMg6TK/stock-photo-wooden-toy-blocks-school-supplies-math-fractions-pencils-numbers-on-beige-background-bac.jpg
+  " alt="" /></figure>
+  <div className="card-body">
 
-        <label htmlFor="toyName" style={{ textAlign: 'left' }}>
-          Name:
-        </label>
-        <input
-          type="text"
-          id="toyName"
-          name="toyName"
-          value={toy.toyName}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
+    <h2 className="card-title">Number game board</h2>
+    <p className="text-lg">price:$19.99</p>
+    <h2 className="text-lg">Rating: 4.5</h2>
+    <div className="card-actions justify-end">
+     <button className="btn btn-primary">View Details</button>
+     </div>
+  
 
-        <label htmlFor="sellerName" style={{ textAlign: 'left' }}>
-          Seller Name:
-        </label>
-        <input
-          type="text"
-          id="sellerName"
-          name="sellerName"
-          value={toy.sellerName}
-          onChange={handleChange}
-          style={{ width: '100%' }}
-        />
-
-        <label htmlFor="sellerEmail" style={{ textAlign: 'left' }}>
-          Seller Email:
-        </label>
-        <input
-          type="email"
-          id="sellerEmail"
-          name="sellerEmail"
-          value={toy.sellerEmail}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
-
-        <label htmlFor="subCategory" style={{ textAlign: 'left' }}>
-          Sub-category:
-        </label>
-        <select
-          id="subCategory"
-          name="subCategory"
-          value={toy.subCategory}
-          onChange={handleChange}
-          style={{ width: '100%' }}
-        >
-          <option value="Math Toys">Math Toys</option>
-          <option value="Language Toys">Language Toys</option>
-          <option value="Science Toys">Science Toys</option>
-        </select>
-
-        <label htmlFor="price" style={{ textAlign: 'left' }}>
-          Price:
-        </label>
-        <input
-          type="number"
-          id="price"
-          name="price"
-          value={toy.price}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
-
-        <label htmlFor="rating" style={{ textAlign: 'left' }}>
-          Rating:
-        </label>
-        <input
-          type="number"
-          id="rating"
-          name="rating"
-          value={toy.rating}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
-
-        <label htmlFor="quantity" style={{ textAlign: 'left' }}>
-          Available Quantity:
-        </label>
-        <input
-          type="number"
-          id="quantity"
-          name="quantity"
-          value={toy.quantity}
-          onChange={handleChange}
-          required
-          style={{ width: '100%' }}
-        />
-
-        <label htmlFor="description" style={{ textAlign: 'left' }}>
-          Description:
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          value={toy.description}
-          onChange={handleChange}
-          required
-          style={{ width: '100%', height: '100px' }}
-        ></textarea>
-
-        <input
-          type="submit"
-          value="Add Toy"
-          style={{
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            padding: '10px',
-            border: 'none',
-            cursor: 'pointer',
-            width: '100%'
-          }}
-        />
-      </form>
+  </div>
+</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default AddToyForm;
+export default AllToys;

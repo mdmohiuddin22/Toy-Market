@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import 'react-tabs/style/react-tabs.css';
 
 const ShopByCategory = () => {
     const [toys, setToys]=useState([]);
@@ -11,15 +12,18 @@ const ShopByCategory = () => {
     },[]);
     return (
         <div>
-            <h1>All Toys:{toys.length}</h1>
  <div className="text-center">
  <h2 className="text-4xl font-extrabold mb-6">Shop By Category</h2>
+
+ 
+ 
              <Tabs className="text-lg ">
     <TabList className="flex justify-center border-b border-emerald-600 pb-3">
       <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Math Toys</Tab>
       <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Engineering Toys</Tab>
       <Tab className="px-6 py-3 mr-2 bg-emerald-600 text-white rounded-lg">Educational Science Toys </Tab>
-    </TabList>
+    </TabList> 
+
 
     <TabPanel>
     <div className="flex justify-center gap-10 m-10">
@@ -107,8 +111,11 @@ const ShopByCategory = () => {
     </TabPanel>
   </Tabs>
  </div>
+
+ 
         </div>
     );
 };
 
 export default ShopByCategory;
+

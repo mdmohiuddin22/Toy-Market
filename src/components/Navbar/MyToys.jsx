@@ -15,9 +15,7 @@ const GallerySection = () => {
       <div className="grid grid-cols-2 md:grid-cols-3  gap-6 m-5">
         {galleryImages.map((image, index) => (
           <div key={index} className="relative">
-            {/* <img  src={image.url} alt={`Image ${index}`} className="rounded-lg hover:scale-105 transition-transform duration-300 gap-5" /> */}
             <img  src={image.url} alt={`Image ${index}`} className="rounded-lg hover:scale-105 transition-transform duration-300 gap-5 " />
-            {/* <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300"> */}
             <div className="">
               <h3 className="text-white text-xl font-bold mb-2">{image.title}</h3>
               <p className="text-white text-sm">{image.description}</p>
